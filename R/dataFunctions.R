@@ -360,7 +360,7 @@ read_10X_v3<-function(inputFolder){
         diffvs <- pairTables[[i]][abs(pairTables[[i]]$logFC) > logFC & pairTables[[i]]$adj.P.Val < FDR, ]
         if (nrow(diffvs) > 1) {
           alldiffgenes <- rownames(diffvs)
-          pathList <- .getWebGestaltPathway(alldiffgenes, organism)
+          pathList <- .getWebGestaltPathway(alldiffgenes, organism, webgest_cache)
           if (!is.null(pathList)) {
             pathList$Comparison <- cont[[i]]
             diffPathList <- rbind(diffPathList, pathList)
