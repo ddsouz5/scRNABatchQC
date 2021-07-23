@@ -418,7 +418,7 @@ generateReport<-function(sces, scesMerge, outputFile="report.html", lineSize=1, 
 #' 
 #' @export
 #' @seealso \code{\link{Process_scRNAseq}}, \code{\link{Combine_scRNAseq}}
-Process_OnescRNAseq <- function(input, sf=10000,mincounts=500,mingenes=200, maxmito=0.2,mtRNA="^mt-|^MT-", rRNA="^Rp[sl][[:digit:]]|^RP[SL][[:digit:]]", nHVGs=1000, nPCs=10,PCind=1, organism="mmusculus",chunk.size=NULL) {
+Process_OnescRNAseq <- function(input, sf=10000,mincounts=500,mingenes=200, maxmito=0.2,mtRNA="^mt-|^MT-", rRNA="^Rp[sl][[:digit:]]|^RP[SL][[:digit:]]", nHVGs=1000, nPCs=10,PCind=1, organism="mmusculus",chunk.size=NULL, webgest_cache=NULL) {
   isOrganismValid<-.isOrganismValid(organism)
   if(! isOrganismValid){
     organism<-NULL
@@ -426,7 +426,7 @@ Process_OnescRNAseq <- function(input, sf=10000,mincounts=500,mingenes=200, maxm
   
   sce<-Tech_OnescRNAseq(input=input,sf=sf,mincounts=mincounts,mingenes=mingenes,maxmito=maxmito,mtRNA=mtRNA, rRNA=rRNA, chunk.size=chunk.size)
   if (ncol(sce) > 10){
-    sce<-Bio_OnescRNAseq(sce,nHVGs=nHVGs,nPCs=nPCs,PCind=PCind,organism=organism)
+    sce<-Bio_OnescRNAseq(sce,nHVGs=nHVGs,nPCs=nPCs,PCind=PCind,organism=organism,webgest_cache=webgest_cache)
     sce@metadata$valid=TRUE
   }else{
     sce@metadata$valid=FALSE
@@ -640,7 +640,7 @@ Tech_OnescRNAseq<-function(input, sf=10000,mincounts=500,mingenes=200, maxmito=0
 #' head(sce@rowRanges@elementMetadata)
 #' sce@metadata$hvgPathway
 #' @seealso \code{\link{Process_OnescRNAseq}} , \code{\link{Tech_OnescRNAseq}} 
-Bio_OnescRNAseq<-function(scdata,nHVGs=1000, nPCs=10,PCind=1, organism="mmusculus" ){
+Bio_OnescRNAseq<-function(scdata,nHVGs=1000, nPCs=10,PCind=1, organism="mmusculus", webgest_cache=NULL){
   isOrganismValid<-.isOrganismValid(organism)
   if(! isOrganismValid){
     organism<-NULL
