@@ -670,7 +670,7 @@ Bio_OnescRNAseq<-function(scdata,nHVGs=1000, nPCs=10,PCind=1, organism="mmusculu
   ## enriched pathways in top 1000 hvgs and 500 pc1 genes
   ##query the webgestalt to see if the organism exist or not...
   if(!is.null(organism)){
-    scdata@metadata$hvgPathway <- .getIndividualPathway(hvggenes,organism=organism)
+    scdata@metadata$hvgPathway <- .getIndividualPathway(hvggenes,organism=organism,webgest_cache=webgest_cache)
     scdata@metadata$pc1Pathway <- .getIndividualPathway(rownames(scdata@metadata$pc1genes), organism=organism)
   }
   
