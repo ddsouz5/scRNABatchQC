@@ -64,7 +64,7 @@ scRNABatchQC<-function(inputs,names=NULL, nHVGs=1000,nPCs=10,sf=10000,mincounts=
     organism<-NULL
   }
   sces<-Process_scRNAseq(inputs=inputs,names=names,nHVGs=nHVGs, nPCs=nPCs,sf=sf, mincounts=mincounts, mingenes=mingenes, maxmito=maxmito,PCind=PCind,mtRNA=mtRNA, rRNA=rRNA, organism=organism, chunk.size=chunk.size)
-  scesMerge<-Combine_scRNAseq(sces,nHVGs=nHVGs, nPCs= nPCs, logFC=logFC,FDR=FDR,sampleRatio=sampleRatio,organism=organism)
+  scesMerge<-Combine_scRNAseq(sces,nHVGs=nHVGs, nPCs= nPCs, logFC=logFC,FDR=FDR,sampleRatio=sampleRatio,organism=organism, webgest_cache=webgest_cache=)
   if(createReport){
     generateReport(sces,scesMerge, outputFile=outputFile, lineSize=lineSize, pointSize=pointSize)
   }
@@ -227,7 +227,7 @@ Process_scRNAseq <- function(inputs, names=NULL, nHVGs=1000, nPCs=10,sf=10000,mi
 #' scesMerge@metadata$diffFC
 #' @seealso \code{\link{Process_scRNAseq}} , \code{\link{generateReport}}
 
-Combine_scRNAseq <- function(sces, nHVGs=1000, nPCs= 10, logFC=1,FDR=0.01,sampleRatio=1,organism="mmusculus") {
+Combine_scRNAseq <- function(sces, nHVGs=1000, nPCs= 10, logFC=1,FDR=0.01,sampleRatio=1,organism="mmusculus", webgest_cache=NULL) {
   if (sampleRatio>1) stop("sampleRatio must be <=1")
   
   isOrganismValid<-.isOrganismValid(organism)
