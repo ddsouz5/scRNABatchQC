@@ -58,7 +58,7 @@
 #' 
 #' @export
 #' @seealso \code{\link{Process_scRNAseq}}, \code{\link{Combine_scRNAseq}} , \code{\link{generateReport}}
-scRNABatchQC<-function(inputs,names=NULL, nHVGs=1000,nPCs=10,sf=10000,mincounts=500,mingenes=200, maxmito=0.2, PCind=1, mtRNA="^mt-|^MT-", rRNA="^Rp[sl][[:digit:]]|^RP[SL][[:digit:]]", sampleRatio=1, logFC=1,FDR=0.01, organism="mmusculus", outputFile="report.html", lineSize=1, pointSize=0.8,chunk.size=NULL, createReport=TRUE){
+scRNABatchQC<-function(inputs,names=NULL, nHVGs=1000,nPCs=10,sf=10000,mincounts=500,mingenes=200, maxmito=0.2, PCind=1, mtRNA="^mt-|^MT-", rRNA="^Rp[sl][[:digit:]]|^RP[SL][[:digit:]]", sampleRatio=1, logFC=1,FDR=0.01, organism="mmusculus", outputFile="report.html", lineSize=1, pointSize=0.8,chunk.size=NULL, createReport=TRUE, webgest_cache=NULL){
   isOrganismValid<-.isOrganismValid(organism)
   if(! isOrganismValid){
     organism<-NULL
@@ -285,7 +285,7 @@ Combine_scRNAseq <- function(sces, nHVGs=1000, nPCs= 10, logFC=1,FDR=0.01,sample
     
     #compare conditions
     cat("Performing differential expression analysis data ...\n")
-    scesMerge@metadata$diffFC <- .getDiffGenes(scesMerge, organism = organism,  logFC=logFC, FDR = FDR, geneNo = 50)
+    scesMerge@metadata$diffFC <- .getDiffGenes(scesMerge, organism = organism,  logFC=logFC, FDR = FDR, geneNo = 50, webgest_cache)
     scesMerge@metadata$logFC<- logFC
     scesMerge@metadata$FDR<-FDR
     scesMerge@metadata$sampleRatio<-sampleRatio
