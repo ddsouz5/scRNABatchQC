@@ -285,7 +285,7 @@ Combine_scRNAseq <- function(sces, nHVGs=1000, nPCs= 10, logFC=1,FDR=0.01,sample
     
     #compare conditions
     cat("Performing differential expression analysis data ...\n")
-    scesMerge@metadata$diffFC <- .getDiffGenes(scesMerge, organism = organism,  logFC=logFC, FDR = FDR, geneNo = 50, webgest_cache)
+    scesMerge@metadata$diffFC <- .getDiffGenes(scesMerge, organism = organism,  logFC=logFC, FDR = FDR, geneNo = 50, webgest_cache = webgest_cache)
     scesMerge@metadata$logFC<- logFC
     scesMerge@metadata$FDR<-FDR
     scesMerge@metadata$sampleRatio<-sampleRatio
