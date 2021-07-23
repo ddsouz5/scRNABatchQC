@@ -278,7 +278,7 @@ read_10X_v3<-function(inputFolder){
 ###############
 
 ##################################
-.getDiffGenes <- function(scesall, organism, logFC=1,FDR = 0.01, geneNo = 50,chunk=1000) {
+.getDiffGenes <- function(scesall, organism, logFC=1,FDR = 0.01, geneNo = 50,chunk=1000, webgest_cache) {
   
   
   
