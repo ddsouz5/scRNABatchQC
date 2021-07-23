@@ -156,11 +156,11 @@ read_10X_v3<-function(inputFolder){
 }
 
 ####
-.getWebGestaltPathway <- function(genes, organism) {
+.getWebGestaltPathway <- function(genes, organism, webgest_cache) {
   tryres=try(spathway<-WebGestaltR(enrichMethod = "ORA", organism = organism,
                                    enrichDatabase = "pathway_KEGG", interestGene = genes,
                                    interestGeneType = "genesymbol", referenceSet = "genome",
-                                   isOutput = FALSE))
+                                   isOutput = FALSE, cache = webgest_cache))
   
   if(class(tryres) == "try-error"){
     return(NULL)
@@ -177,8 +177,8 @@ read_10X_v3<-function(inputFolder){
 
 
 ###
-.getIndividualPathway <- function(sgenes, organism) {
-  sdata <- .getWebGestaltPathway(sgenes, organism)
+.getIndividualPathway <- function(sgenes, organism, webgest_cache) {
+  sdata <- .getWebGestaltPathway(sgenes, organism, webgest_cache)
   return(sdata)
 }
 
